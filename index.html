@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubaya Language Center - Bahasa Membuka Dunia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Flag Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ubaya-blue': '#1e3a8a',
+                        'ubaya-gold': '#fbbf24',
+                        'ubaya-dark-blue': '#1e40af',
+                        'ubaya-red': '#dc2626',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .hero-bg {
+          /*
+             background: linear-gradient(135deg, rgba(30, 58, 138, 0.9), rgba(30, 64, 175, 0.8)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="people" patternUnits="userSpaceOnUse" width="120" height="120"><circle cx="30" cy="40" r="12" fill="%23ffffff" opacity="0.1"/><circle cx="90" cy="80" r="8" fill="%23fbbf24" opacity="0.2"/><circle cx="60" cy="20" r="6" fill="%23ffffff" opacity="0.15"/><circle cx="20" cy="90" r="10" fill="%23fbbf24" opacity="0.1"/><circle cx="100" cy="30" r="7" fill="%23ffffff" opacity="0.12"/><path d="M40,60 Q50,50 60,60 Q50,70 40,60" fill="%23ffffff" opacity="0.08"/><path d="M80,100 Q90,90 100,100 Q90,110 80,100" fill="%23fbbf24" opacity="0.1"/></pattern></defs><rect width="1200" height="600" fill="url(%23people)"/><circle cx="200" cy="150" r="3" fill="%23ffffff" opacity="0.3"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite"/></circle><circle cx="800" cy="300" r="4" fill="%23fbbf24" opacity="0.4"><animate attributeName="opacity" values="0.4;0.9;0.4" dur="2s" repeatCount="indefinite"/></circle><circle cx="1000" cy="200" r="2" fill="%23ffffff" opacity="0.5"><animate attributeName="opacity" values="0.5;1;0.5" dur="4s" repeatCount="indefinite"/></circle></svg>');
+            */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('cover.png');
+            background-size: cover;
+            background-position: full;
+            background-attachment: fixed;
+
+        }
+        
+        .floating-wa {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .section-fade {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .section-fade.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .card-hover {
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .card-hover:hover::before {
+            left: 100%;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #1e3a8a, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-biru {
+            background-color: #1e3a8a;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pulse-icon {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .nav-glass {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .service-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid rgba(30, 58, 138, 0.1);
+        }
+        
+        .icon-bounce:hover {
+            animation: iconBounce 0.6s ease;
+        }
+        
+        @keyframes iconBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-5px); }
+            60% { transform: translateY(-3px); }
+        }
+        
+        .stats-counter {
+            font-family: 'Arial', sans-serif;
+            font-weight: 800;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="nav-glass shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20">
+
+      <!-- Bagian kiri: Logo -->
+      <div class="flex items-center space-x-3">
+        <!-- Logo Ubaya -->
+        <img src="logo_ubaya.png" alt="Logo Ubaya" class="h-12 w-auto">
+
+        <!-- Logo ULC -->
+        <img src="logo_ulc.png" alt="Logo ULC" class="h-16 w-auto">
+
+        <!-- Nama -->
+        <span class="gradient-biru font-bold text-xl whitespace-nowrap">
+          Ubaya Language Center
+        </span>
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:block">
+          <div class="ml-10 flex items-baseline space-x-4">
+              <a href="#beranda" class="nav-link text-ubaya-blue hover:text-ubaya-gold px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:bg-gray-50">
+                  <i class="fas fa-home mr-1"></i>Beranda
+                        </a>
+                        <a href="#tentang" class="nav-link text-ubaya-blue hover:text-ubaya-gold px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:bg-gray-50">
+                            <i class="fas fa-info-circle mr-1"></i>Tentang Kami
+                        </a>
+                        <a href="#layanan" class="nav-link text-ubaya-blue hover:text-ubaya-gold px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:bg-gray-50">
+                            <i class="fas fa-graduation-cap mr-1"></i>Layanan
+                        </a>
+                        <a href="#pendaftaran" class="nav-link text-ubaya-blue hover:text-ubaya-gold px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:bg-gray-50">
+                            <i class="fas fa-user-plus mr-1"></i>Pendaftaran
+                        </a>
+                        <a href="#kontak" class="nav-link text-ubaya-blue hover:text-ubaya-gold px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:bg-gray-50">
+                            <i class="fas fa-phone mr-1"></i>Kontak
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-ubaya-blue hover:text-ubaya-gold focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#beranda" class="mobile-nav-link block text-ubaya-blue hover:text-ubaya-gold px-3 py-2 rounded-md text-base font-medium">
+                    <i class="fas fa-home mr-2"></i>Beranda
+                </a>
+                <a href="#tentang" class="mobile-nav-link block text-ubaya-blue hover:text-ubaya-gold px-3 py-2 rounded-md text-base font-medium">
+                    <i class="fas fa-info-circle mr-2"></i>Tentang Kami
+                </a>
+                <a href="#layanan" class="mobile-nav-link block text-ubaya-blue hover:text-ubaya-gold px-3 py-2 rounded-md text-base font-medium">
+                    <i class="fas fa-graduation-cap mr-2"></i>Layanan
+                </a>
+                <a href="#pendaftaran" class="mobile-nav-link block text-ubaya-blue hover:text-ubaya-gold px-3 py-2 rounded-md text-base font-medium">
+                    <i class="fas fa-user-plus mr-2"></i>Pendaftaran
+                </a>
+                <a href="#kontak" class="mobile-nav-link block text-ubaya-blue hover:text-ubaya-gold px-3 py-2 rounded-md text-base font-medium">
+                    <i class="fas fa-phone mr-2"></i>Kontak
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="hero-bg min-h-screen flex items-center justify-center text-center text-white pt-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="section-fade">
+
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    Bahasa Membuka <span class="text-ubaya-gold">Dunia</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 leading-relaxed opacity-90">
+                    Kuasai berbagai bahasa asing dan perluas peluangmu ke tingkat global!
+                </p>
+ 
+            </div>
+        </div>
+    </section>
+
+<!-- About Section -->
+<section id="tentang" class="py-20 bg-gradient-to-br from-gray-50 to-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="section-fade">
+      <div class="text-center mb-16">
+        <!-- Ikon lingkaran di tengah -->
+        <div class="icon-circle-custom">
+          <i class="fas fa-info"></i>
+        </div>
+
+        <h2 class="text-4xl font-bold gradient-text mb-6">Tentang Kami</h2>
+        <div class="w-24 h-1 bg-gradient-to-r from-ubaya-blue to-ubaya-gold mx-auto"></div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="bg-white p-8 rounded-2xl shadow-xl">
+            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+              Direktorat Pusat Bahasa UBAYA atau lebih dikenal dengan
+              <strong class="text-ubaya-blue">UBAYA Language Center (ULC)</strong>
+              resmi didirikan pada
+              <strong class="text-ubaya-gold">20 April 2004</strong>. Didukung oleh staf pengajar yang berkualitas dan fasilitas yang memadai.
+            </p>
+            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+              Kami berkomitmen untuk menjadi pusat bahasa yang unggul dalam pengembangan kompetensi bahasa dan komunikasi.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="text-center bg-white p-8 rounded-2xl shadow-xl card-hover">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-ubaya-blue to-ubaya-dark-blue rounded-full mb-4">
+              <i class="fas fa-calendar-alt text-white text-2xl"></i>
+            </div>
+            <div class="stats-counter text-4xl font-bold text-ubaya-blue mb-2">20+</div>
+            <div class="text-ubaya-gold font-semibold text-lg">Tahun Pengalaman</div>
+          </div>
+
+          <div class="text-center bg-white p-8 rounded-2xl shadow-xl card-hover">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-ubaya-gold to-yellow-500 rounded-full mb-4">
+              <i class="fas fa-users text-white text-2xl"></i>
+            </div>
+            <div class="stats-counter text-4xl font-bold text-ubaya-blue mb-2">1+</div>
+            <div class="text-ubaya-gold font-semibold text-lg">Peserta Terdaftar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Services Section -->
+    <section id="layanan" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="section-fade">
+                <div class="text-center mb-16">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-ubaya-gold rounded-full mb-4">
+                        <i class="fas fa-graduation-cap text-white text-2xl"></i>
+                    </div>
+                    <h2 class="text-4xl font-bold gradient-text mb-4">Layanan Kami</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-ubaya-blue to-ubaya-gold mx-auto mb-4"></div>
+                    <p class="text-lg text-gray-600">Pilih bahasa favoritmu dan mulai belajar di Pusat Bahasa Ubaya!</p>
+                </div>
+
+                <!-- Service Tabs -->
+                <div class="flex flex-wrap justify-center mb-12 bg-gray-100 rounded-2xl p-2">
+                    <button class="service-tab active px-6 py-3 font-semibold text-white bg-ubaya-blue rounded-xl m-1 transition-all duration-300" data-tab="kursus">
+                        <i class="fas fa-book mr-2"></i>Kelas Kursus
+                    </button>
+                    <button class="service-tab px-6 py-3 font-semibold text-gray-600 hover:text-ubaya-blue rounded-xl m-1 transition-all duration-300" data-tab="persiapan">
+                        <i class="fas fa-clipboard-check mr-2"></i>Persiapan Tes
+                    </button>
+                    <button class="service-tab px-6 py-3 font-semibold text-gray-600 hover:text-ubaya-blue rounded-xl m-1 transition-all duration-300" data-tab="tes">
+                        <i class="fas fa-file-alt mr-2"></i>Tes Bahasa
+                    </button>
+                    <button class="service-tab px-6 py-3 font-semibold text-gray-600 hover:text-ubaya-blue rounded-xl m-1 transition-all duration-300" data-tab="lainnya">
+                        <i class="fas fa-plus-circle mr-2"></i>Layanan Lain
+                    </button>
+                </div>
+
+                <!-- Kursus Content -->
+                <div id="kursus" class="service-content">
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- English -->
+                        <div class="service-card p-6 rounded-2xl card-hover shadow-lg">
+                            <div class="flex items-center mb-6">
+                                  <span class="text-4xl mr-4">🇬🇧</span>
+                                    <h3 class="text-xl font-bold text-ubaya-blue">Bahasa Inggris</h3>
+                            </div>
+                            <ul class="space-y-3 text-gray-700">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>English Grammar</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Practical English</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Business English</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>English Academic Writing</li>
+                            </ul>
+                </div>
+
+
+                        <!-- Mandarin -->
+                         <div class="service-card p-6 rounded-2xl card-hover shadow-lg">
+      <div class="flex items-center mb-6">
+        <span class="text-4xl mr-4">🇨🇳</span>
+        <h3 class="text-xl font-bold text-ubaya-blue">Bahasa Mandarin</h3>
+      </div>
+                            <ul class="space-y-3 text-gray-700">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Mandarin Dasar</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Mandarin Business</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Mandarin Lexis</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Mandarin Tujuan Khusus</li>
+                            </ul>
+                        </div>
+
+                        <!-- Japanese -->
+                        <div class="service-card p-6 rounded-2xl card-hover shadow-lg">
+                             <div class="flex items-center mb-6">
+                                 <span class="text-4xl mr-4">🇯🇵</span>
+                                <h3 class="text-xl font-bold text-ubaya-blue">Bahasa Jepang</h3>
+                            </div>
+                            <ul class="space-y-3 text-gray-700">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Jepang Dasar I, II</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Jepang Chukyu</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Jepang Jokyu (Advance)</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Kelas Kilat</li>
+                            </ul>
+                        </div>
+
+                        <!-- Korean -->
+                        <div class="service-card p-6 rounded-2xl card-hover shadow-lg">
+                            <div class="flex items-center mb-6">
+                                <span class="text-4xl mr-4">🇰🇷</span>
+                                <h3 class="text-xl font-bold text-ubaya-blue">Bahasa Korea</h3>
+                            </div>
+                            <ul class="space-y-3 text-gray-700">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Korea Dasar</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Korea Intermediate</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Korea Advance</li>
+                            </ul>
+                        </div>
+
+                        <!-- German -->
+                        <div class="service-card p-6 rounded-2xl card-hover shadow-lg">
+                            <div class="flex items-center mb-6">
+                                <span class="text-4xl mr-4">🇩🇪</span>
+                                  <h3 class="text-xl font-bold text-ubaya-blue">Bahasa Jerman</h3>
+                          </div>
+                            <ul class="space-y-3 text-gray-700">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Jerman Dasar (A1-A2)</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Jerman Intermediate (B1-B2)</li>
+                            </ul>
+                        </div>
+
+                        <!-- French -->
+                        <div class="service-card p-6 rounded-2xl card-hover shadow-lg">
+                                <div class="flex items-center mb-6">
+                                    <span class="text-4xl mr-4">🇫🇷</span>
+                                    <h3 class="text-xl font-bold text-ubaya-blue">Bahasa Prancis</h3>
+                                </div>
+                            <ul class="space-y-3 text-gray-700">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Prancis Debutant A1</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Prancis Debutant A2</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Prancis Debutant B1</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-ubaya-gold mr-2"></i>Prancis Debutant B2</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Test Preparation Content -->
+                <div id="persiapan" class="service-content hidden">
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="service-card p-6 rounded-2xl card-hover shadow-lg">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-certificate text-white"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-ubaya-blue">IELTS</h3>
+                            </div>
+                            <div class="space-y-2 text-gray-700">
+                                <p class="flex items-center"><i class="fas fa-clock text-ubaya-gold mr-2"></i>26x sesi, 4x seminggu</p>
+                                <p class="flex items-center"><i class="fas fa-stopwatch text-ubaya-gold mr-2"></i>Durasi: 90 menit/sesi</p>
+                            </div>
+                        </div>
+                        <div class="service-card p-6 rounded-2xl card-hover shadow-lg">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-graduation-cap text-white"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-ubaya-blue">EPT</h3>
+                            </div>
+                            <div class="space-y-2 text-gray-700">
+                                <p class="flex items-center"><i class="fas fa-clock text-ubaya-gold mr-2"></i>21x sesi, 3x seminggu</p>
+                                <p class="flex items-center"><i class="fas fa-stopwatch text-ubaya-gold mr-2"></i>Durasi: 90 menit/sesi</p>
+                                <p class="flex items-center text-ubaya-gold font-semibold"><i class="fas fa-gift mr-2"></i>Gratis 1x tes EPT</p>
+                            </div>
+                        </div>
+                        <div class="service-card p-6 rounded-2xl card-hover shadow-lg">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-language text-white"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-ubaya-blue">HSK</h3>
+                            </div>
+                            <p class="text-gray-700">Level 1-3, 4A-4B, 5A-5B, 6A-6B</p>
+                        </div>
+                        <div class="service-card p-6 rounded-2xl card-hover shadow-lg">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-torii-gate text-white"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-ubaya-blue">JLPT</h3>
+                            </div>
+                            <p class="text-gray-700">Level N5 - N2</p>
+                        </div>
+                        <div class="service-card p-6 rounded-2xl card-hover shadow-lg">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-600 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-heart text-white"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-ubaya-blue">TOPIK</h3>
+                            </div>
+                            <p class="text-gray-700">TOPIK I</p>
+                        </div>
+                        <div class="service-card p-6 rounded-2xl card-hover shadow-lg">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-gray-700 to-blue-700 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-award text-white"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-ubaya-blue">Goethe & DELF</h3>
+                            </div>
+                            <p class="text-gray-700">Level A1, A2, B1, B2</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Language Tests Content -->
+                <div id="tes" class="service-content hidden">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="service-card p-8 rounded-2xl card-hover shadow-lg">
+                            <div class="flex items-center mb-6">
+                                <span class="text-4xl mr-4">🇬🇧</span>
+                                <h3 class="text-2xl font-bold text-ubaya-blue">Tes IELTS</h3>
+                            </div>
+                            <div class="space-y-3 text-gray-700">
+                                <p class="flex items-center"><i class="fas fa-calendar text-ubaya-gold mr-3"></i><strong>Jadwal:</strong> Kamis, Sabtu, & Minggu</p>
+                                <p class="flex items-start"><i class="fas fa-money-bill text-ubaya-gold mr-3 mt-1"></i>Biaya bersifat fleksibel dan akan diinformasikan secara berkala</p>
+                            </div>
+                        </div>
+                        <div class="service-card p-8 rounded-2xl card-hover shadow-lg">
+                            <div class="flex items-center mb-6">
+                                <div class="flex items-center mb-6">
+                                <span class="text-4xl mr-4">🇺🇸</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-ubaya-blue">Tes EPT</h3>
+                            </div>
+                            <div class="space-y-3 text-gray-700">
+                                <p class="flex items-center"><i class="fas fa-calendar text-ubaya-gold mr-3"></i><strong>Jadwal:</strong> Selasa & Kamis</p>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <p class="font-semibold text-ubaya-blue mb-2">Biaya:</p>
+                                    <p class="flex items-center mb-1"><i class="fas fa-user-graduate text-ubaya-gold mr-2"></i>Mahasiswa Ubaya: Rp 100.000,-</p>
+                                    <p class="flex items-center"><i class="fas fa-users text-ubaya-gold mr-2"></i>Umum: Rp 200.000,-</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Services Content -->
+                <div id="lainnya" class="service-content hidden">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="service-card p-8 rounded-2xl card-hover shadow-lg">
+                            <div class="flex items-center mb-6">
+                                <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-users text-white text-2xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-ubaya-blue">Program BIPA</h3>
+                            </div>
+                            <p class="text-gray-700 text-lg">Bahasa Indonesia bagi Penutur Asing - Program khusus untuk membantu penutur asing menguasai bahasa Indonesia dengan baik dan benar.</p>
+                        </div>
+                        <div class="service-card p-8 rounded-2xl card-hover shadow-lg">
+                            <div class="flex items-center mb-6">
+                                <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-language text-white text-2xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-ubaya-blue">Jasa Penerjemahan</h3>
+                            </div>
+                            <p class="text-gray-700 text-lg">Layanan penerjemahan dan proofreading profesional untuk berbagai kebutuhan dokumen dan teks dalam berbagai bahasa.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="pendaftaran" class="py-20 bg-gradient-to-br from-ubaya-blue to-ubaya-dark-blue">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="section-fade">
+                <div class="text-center mb-12">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-ubaya-gold rounded-full mb-4">
+                        <i class="fas fa-user-plus text-white text-2xl"></i>
+                    </div>
+                    <h2 class="text-4xl font-bold text-white mb-4">Pendaftaran</h2>
+                    <div class="w-24 h-1 bg-ubaya-gold mx-auto mb-4"></div>
+                    <p class="text-xl text-gray-200">Daftar sekarang, dan ambil langkah pertama menuju masa depan global</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-2xl p-8">
+                    <form id="registration-form" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="fas fa-user text-ubaya-blue mr-2"></i>Nama Lengkap
+                            </label>
+                            <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ubaya-blue focus:border-transparent transition-all duration-300">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="fas fa-tags text-ubaya-blue mr-2"></i>Kategori
+                            </label>
+                            <select required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ubaya-blue focus:border-transparent transition-all duration-300">
+                                <option value="">Pilih Kategori</option>
+                                <option value="mahasiswa">Mahasiswa Ubaya</option>
+                                <option value="alumni">Alumni dan Karyawan Ubaya</option>
+                                <option value="umum">Umum</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="fas fa-envelope text-ubaya-blue mr-2"></i>Email
+                            </label>
+                            <input type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ubaya-blue focus:border-transparent transition-all duration-300">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="fas fa-phone text-ubaya-blue mr-2"></i>No. HP
+                            </label>
+                            <input type="tel" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ubaya-blue focus:border-transparent transition-all duration-300">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="fas fa-globe text-ubaya-blue mr-2"></i>Bahasa yang Diminati
+                            </label>
+                            <select required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ubaya-blue focus:border-transparent transition-all duration-300">
+                                <option value="">Pilih Bahasa</option>
+                                <option value="inggris">Bahasa Inggris</option>
+                                <option value="mandarin">Bahasa Mandarin</option>
+                                <option value="jepang">Bahasa Jepang</option>
+                                <option value="korea">Bahasa Korea</option>
+                                <option value="jerman">Bahasa Jerman</option>
+                                <option value="prancis">Bahasa Prancis</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="w-full bg-gradient-to-r from-ubaya-gold to-yellow-500 hover:from-yellow-500 hover:to-ubaya-gold text-ubaya-blue font-bold py-4 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl">
+                            <i class="fas fa-paper-plane mr-2"></i>Daftar Sekarang
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="kontak" class="py-20 bg-gradient-to-br from-gray-50 to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="section-fade">
+                <div class="text-center mb-16">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-ubaya-blue rounded-full mb-4">
+                        <i class="fas fa-phone text-white text-2xl"></i>
+                    </div>
+                    <h2 class="text-4xl font-bold gradient-text mb-4">Kontak</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-ubaya-blue to-ubaya-gold mx-auto mb-4"></div>
+                    <p class="text-lg text-gray-600">Hubungi kami untuk informasi lebih lanjut</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center bg-white p-8 rounded-2xl shadow-xl card-hover">
+                        <div class="w-16 h-16 bg-gradient-to-br from-ubaya-blue to-ubaya-dark-blue rounded-full flex items-center justify-center mx-auto mb-6 icon-bounce">
+                            <i class="fas fa-map-marker-alt text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-ubaya-blue mb-4">Alamat</h3>
+                        <p class="text-gray-700 leading-relaxed">Gedung FG Lt. 2, Kampus Tenggilis, Universitas Surabaya</p>
+                    </div>
+
+                    <div class="text-center bg-white p-8 rounded-2xl shadow-xl card-hover">
+                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 icon-bounce">
+                            <i class="fas fa-phone text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-ubaya-blue mb-4">Telepon</h3>
+                        <p class="text-gray-700 text-lg font-semibold">+62 857 3301 1417</p>
+                    </div>
+
+                    <div class="text-center bg-white p-8 rounded-2xl shadow-xl card-hover">
+                        <div class="w-16 h-16 bg-gradient-to-br from-ubaya-gold to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6 icon-bounce">
+                            <i class="fas fa-envelope text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-ubaya-blue mb-4">Email</h3>
+                        <p class="text-gray-700 text-lg font-semibold">ulc@unit.ubaya.ac.id</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-ubaya-blue to-ubaya-dark-blue text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-ubaya-gold to-yellow-500 rounded-full flex items-center justify-center mr-3 shadow-lg">
+                            <span class="text-ubaya-blue font-bold text-lg">U</span>
+                        </div>
+                        <span class="text-white font-bold text-xl">Ubaya Language Center</span>
+                    </div>
+                    <p class="text-gray-300 mb-6 leading-relaxed">Pusat bahasa yang unggul dalam pengembangan kompetensi bahasa dan komunikasi sejak 2004.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.tiktok.com/@ulcubaya" target="_blank" class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all duration-300">
+                            <i class="fab fa-tiktok text-white"></i>
+                        </a>
+                        <a href="https://www.instagram.com/ulcubaya/" target="_blank" class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all duration-300">
+                            <i class="fab fa-instagram text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all duration-300">
+                            <i class="fab fa-youtube text-white"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-6 flex items-center">
+                        <i class="fas fa-graduation-cap text-ubaya-gold mr-2"></i>Layanan
+                    </h4>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="hover:text-ubaya-gold transition-colors cursor-pointer">Kelas Kursus Bahasa</li>
+                        <li class="hover:text-ubaya-gold transition-colors cursor-pointer">Persiapan Tes</li>
+                        <li class="hover:text-ubaya-gold transition-colors cursor-pointer">Tes Bahasa Asing</li>
+                        <li class="hover:text-ubaya-gold transition-colors cursor-pointer">Program BIPA</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-6 flex items-center">
+                        <i class="fas fa-phone text-ubaya-gold mr-2"></i>Kontak
+                    </h4>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-center hover:text-ubaya-gold transition-colors">
+                            <i class="fas fa-phone mr-3 text-ubaya-gold"></i>+62 857 3301 1417
+                        </li>
+                        <li class="flex items-center hover:text-ubaya-gold transition-colors">
+                            <i class="fas fa-envelope mr-3 text-ubaya-gold"></i>ulc@unit.ubaya.ac.id
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-600 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2025 Ubaya Language Center | You See? It's Easy</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/6285733011417" target="_blank" rel="noopener noreferrer" class="floating-wa">
+        <div class="bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110">
+            <i class="fab fa-whatsapp text-2xl"></i>
+        </div>
+    </a>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        // Service tabs functionality
+        document.querySelectorAll('.service-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                document.querySelectorAll('.service-tab').forEach(t => {
+                    t.classList.remove('active', 'text-white', 'bg-ubaya-blue');
+                    t.classList.add('text-gray-600');
+                });
+                
+                // Add active class to clicked tab
+                this.classList.add('active', 'text-white', 'bg-ubaya-blue');
+                this.classList.remove('text-gray-600');
+                
+                // Hide all content
+                document.querySelectorAll('.service-content').forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                // Show selected content
+                const targetContent = document.getElementById(this.dataset.tab);
+                if (targetContent) {
+                    targetContent.classList.remove('hidden');
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('registration-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Show success message
+            alert('🎉 Terima kasih! Pendaftaran Anda telah diterima. Tim kami akan menghubungi Anda segera untuk informasi lebih lanjut.');
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections with fade animation
+        document.querySelectorAll('.section-fade').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Active navigation highlighting
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('text-ubaya-gold');
+                link.classList.add('text-ubaya-blue');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.remove('text-ubaya-blue');
+                    link.classList.add('text-ubaya-gold');
+                }
+            });
+        });
+
+        // Counter animation for stats
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current) + (target >= 1000 ? '+' : '+');
+            }, 20);
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.stats-counter');
+                    counters.forEach(counter => {
+                        const target = counter.textContent.includes('20') ? 20 : 1000;
+                        animateCounter(counter, target);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const aboutSection = document.getElementById('tentang');
+        if (aboutSection) {
+            statsObserver.observe(aboutSection);
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'983ee414c42fdd4a',t:'MTc1ODY4MTM1My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

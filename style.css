@@ -1,0 +1,40 @@
+.icon-circle-custom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;            /* ukuran lingkaran */
+  height: 50px;
+  background-color: #fbbf24; /* biru ubaya-blue */
+  border-radius: 50%;     /* supaya jadi lingkaran */
+  margin: 0 auto;         /* biar berada di tengah */
+  box-shadow: 0 6px 20px white;
+}
+
+.icon-circle-custom i {
+  color: white;           /* huruf i berwarna putih */
+  font-size: 27px;        /* sesuaikan ukuran ikon */
+  position: relative;
+  bottom: 3px;
+  left: 0px;
+}
+.icon-circle-custom:hover {
+  background-color: #1e40af;   /* biru sedikit lebih terang */
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+.icon-bounce {
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
