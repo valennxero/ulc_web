@@ -58,6 +58,8 @@
     gap: 0.2rem;
   }
 
+
+
   /* Kurangi tinggi navbar */
   nav .h-20 {
     height: 4rem;
@@ -75,8 +77,25 @@
 
 
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
+  .hero-bg {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-attachment: scroll;
+  }
   #beranda {
-    padding-top: 5rem;
+    min-height: 90vh;               /* sedikit lebih tinggi agar gambar cukup ruang */
+    padding-top: 3.5rem;
+  }
+
+  #beranda h1 {
+    font-size: 1.8rem;
+    line-height: 1.3;
+  }
+
+  #beranda p {
+    font-size: 1rem;
   }
 }
+
